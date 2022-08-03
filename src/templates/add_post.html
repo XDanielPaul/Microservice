@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{%block content%} 
+{% block content %} 
     <form method="post" action="" name="Post">
         <label  class="col-sm-2 col-form-label required">Title:</label>    
         <input type="text" class="form-control emph" name="title" value ="{{title if title}}" placeholder="Title" required/>
         <label  class="col-sm-2 col-form-label">Body:</label>    
         <textarea type="text" class="form-control" name="body" value ="{{body if body}}" placeholder="Content..." required></textarea>
         <button type="submit" class="border border-secondary btn btn-secondary" style="background-color:  rgb(4, 161, 4); margin-top: 10px;">Add post</button>
-      </form>
-{%endblock%}
+    </form>
+{% endblock %}

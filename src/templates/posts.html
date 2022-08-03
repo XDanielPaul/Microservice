@@ -1,10 +1,18 @@
 {% extends "base.html" %}
-{%block content%}
+{% block content %}
+<h1>Filter posts by userId or postId. If none of fields are filled, all posts will be shown.</h1>
+<form method="post" action="">
+    <input type="number" class="rounded" name="postId" placeholder="Search post by id">
+    <input type="number" class="rounded" name="userId" placeholder="Search post by user id">
+    <button class="rounded btn btn-primary" name="filter_posts"  value="filter_posts" type="submit">Filter</button>
+</form>
+{% if posts != None %}
+    {% if queryempty(posts) %}
+    <h3 style="padding-top: 20px; padding-bottom: 20px;">No results were found</h3>
+    {% else %}
     <table>
         <thead>
             <tr>
-                <th>userID</th>
-                <th>ID</th>
                 <th>Title</th>
                 <th>Body</th>
             </tr>
@@ -12,12 +20,13 @@
         <tbody>
             {% for post in posts %}  
             <tr>    
-                <td>{{post['userId']}}</td>
-                <td>{{post['id']}}</td>
                 <td>{{post['title']}}</td>
                 <td>{{post['body']}}</td>
             </tr>
             {% endfor %}
         </tbody>    
     </table>
-{%endblock%}
+    {% endif %}
+{% endif %}
+
+{% endblock %}
