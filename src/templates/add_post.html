@@ -2,7 +2,7 @@
 {% block content %} 
     <form method="post" action="" name="Post">
       <label  class="col-sm-2 col-form-label required">UserId:</label>    
-        <input type="number" class="form-control emph" name="userId" value ="{{userId if userId}}" placeholder="UserId" required/>
+        <input type="number" class="form-control emph" name="userId" value ="{{userId if userId}}" placeholder="UserId" min="1" required/>
         <label  class="col-sm-2 col-form-label required">Title:</label>    
         <input type="text" class="form-control emph" name="title" value ="{{title if title}}" placeholder="Title" required/>
         <label  class="col-sm-2 col-form-label">Body:</label>    

@@ -1,31 +1,66 @@
 {% extends "base.html" %}
 {% block content %}
-<h3>Filter posts by userId or postId.</h3>
+<h3>Filter posts by userID or postID.</h3>
 <form method="post" action="">
-    <input type="number" class="rounded" name="postId" placeholder="Search post by id" >
-    <input type="number" class="rounded" name="userId" placeholder="Search post by user id">
+    <input type="number" class="rounded" name="postId" placeholder="Search post by id" min="1" >
+    <input type="number" class="rounded" name="userId" placeholder="Search post by user id" min="1">
     <button class="rounded btn btn-primary" name="filter_posts"  value="filter_posts" type="submit">Filter</button>
 </form>
-{% if posts != None %}
-    {% if queryempty(posts) %}
+{% if APIposts != None or DBposts != None %}
+    {% if queryempty(DBposts) and APIposts == [] %}
     <h3>No results were found</h3>
     {% else %}
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Body</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for post in posts %}  
-            <tr>    
-                <td>{{post['title']}}</td>
-                <td>{{post['body']}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>    
-    </table>
+        {% if DBposts != None %}
+            <h2 style="padding-top:20px;padding-bottom:20px">DB Posts</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Body</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in DBposts %}  
+                    <tr>    
+                        {% if post['id'] == postToEdit %}
+                            <form method="post" action="">
+                            <td><input style="width: 100%;" type="text" name="title" value ="{{title if title}}" placeholder="{{post.title}}" required/></td>
+                            <td><input style="width: 100%;" type="text" name="body" value ="{{body if body}}" placeholder="{{post.body}}" required/></td>
+                            <td style="white-space: nowrap; width: 400px;"><button type="submit" name="confirm_button" value="{{post['id'],postID,userID}}" class="btn btn-primary" style="background-color: rgb(4, 161, 4);">Confirm</button></td>
+                            <td style="white-space: nowrap; width: 400px;"><button type="submit" name="cancel_button" value="{{postID,userID}}" class="btn btn-primary" style="background-color: red;">Cancel</button></td>
+                            </form>
+                        {% else %}
+                        <td>{{post['title']}}</td>
+                        <td>{{post['body']}}</td>
+                        <form method="post" action="">
+                            <td style="white-space: nowrap; width: 400px;"><button type="submit" name="edit_button" value="{{post['id'],postID,userID}}" class="btn btn-primary" style="background-color: rgb(4, 161, 4);">Edit</button></td>
+                            <td style="white-space: nowrap; width: 400px;"><button type="submit" name="delete_button" value="{{post['id'],postID,userID}}" class="btn btn-primary" style="background-color: red;">Delete</button></td>
+                        </form>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>    
+            </table>
+        {% endif %}
+        {% if APIposts != None %}
+            <h2 style="padding-top:20px;padding-bottom:20px"> API Posts</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Body</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in APIposts %}  
+                    <tr>    
+                        <td>{{post['title']}}</td>
+                        <td>{{post['body']}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>    
+            </table>
+        {% endif %}
     {% endif %}
 {% endif %}
 
