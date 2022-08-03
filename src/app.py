@@ -18,8 +18,8 @@ app.run(debug=True)
 
 # Landing page
 @app.route('/')
-def index():
-    return render_template('base.html')
+def home():
+    return render_template('home.html')
 
 # Page showing all posts
 @app.route('/posts')
