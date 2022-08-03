@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Filter posts by userId or postId. If none of fields are filled, all posts will be shown.</h1>
+<h3>Filter posts by userId or postId.</h3>
 <form method="post" action="">
-    <input type="number" class="rounded" name="postId" placeholder="Search post by id">
+    <input type="number" class="rounded" name="postId" placeholder="Search post by id" >
     <input type="number" class="rounded" name="userId" placeholder="Search post by user id">
     <button class="rounded btn btn-primary" name="filter_posts"  value="filter_posts" type="submit">Filter</button>
 </form>
 {% if posts != None %}
     {% if queryempty(posts) %}
-    <h3 style="padding-top: 20px; padding-bottom: 20px;">No results were found</h3>
+    <h3>No results were found</h3>
     {% else %}
     <table>
         <thead>

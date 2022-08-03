@@ -1,10 +1,19 @@
 {% extends "base.html" %}
 {% block content %} 
     <form method="post" action="" name="Post">
+      <label  class="col-sm-2 col-form-label required">UserId:</label>    
+        <input type="number" class="form-control emph" name="userId" value ="{{userId if userId}}" placeholder="UserId" required/>
         <label  class="col-sm-2 col-form-label required">Title:</label>    
         <input type="text" class="form-control emph" name="title" value ="{{title if title}}" placeholder="Title" required/>
         <label  class="col-sm-2 col-form-label">Body:</label>    
         <textarea type="text" class="form-control" name="body" value ="{{body if body}}" placeholder="Content..." required></textarea>
         <button type="submit" class="border border-secondary btn btn-secondary" style="background-color:  rgb(4, 161, 4); margin-top: 10px;">Add post</button>
+        {% if user_found == 1 %}
+          <small style="color: green; font-size: medium; padding-left: 20px;">Post has been added.</small>
+        {% endif %}
+        {% if user_found == 2 %}
+          <small style="color: red; font-size: medium;  padding-left: 20px;">UserID has not been found.</small>
+        {% endif %}
     </form>
+    
 {% endblock %}
